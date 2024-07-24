@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site"
 import { Button, buttonVariants } from "@/components/ui/button"
 
 import { Icons } from "./icons"
-import { MainNav } from "./main-nav"
+import MainNav from "./main-nav"
 import MobileNav from "./mobile-nav"
 import { ThemeToggle } from "./theme-toggle"
 
