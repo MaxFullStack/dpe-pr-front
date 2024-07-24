@@ -1,39 +1,54 @@
-import Link from "next/link"
+import React from "react"
+import {
+  evaluationCriteria,
+  nonFunctionalRequirements,
+  nonFunctionalRequirementsTitle,
+  projectObjective,
+  projectTitle,
+  queryDetails,
+  queryDetailsTitle,
+  queryOptions,
+} from "@/constants/project-info"
 
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
+import FooterSection from "@/components/layout/footer-section"
+import { SiteHeader } from "@/components/layout/site-header"
 
-export default function IndexPage() {
+const IndexPage = () => {
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-col items-start gap-2">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-          Beautifully designed components <br className="hidden sm:inline" />
-          built with Radix UI and Tailwind CSS.
-        </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground">
-          Accessible and customizable components that you can copy and paste
-          into your apps. Free. Open Source. And Next.js 13 Ready.
-        </p>
-      </div>
-      <div className="flex gap-4">
-        <Link
-          href={siteConfig.links.docs}
-          target="_blank"
-          rel="noreferrer"
-          className={buttonVariants()}
-        >
-          Documentation
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
-        >
-          GitHub
-        </Link>
-      </div>
-    </section>
+    <>
+      <SiteHeader />
+      <main id="solutions" className="px-8 py-8 md:px-12 md:py-10">
+        <h1 className="mb-8 text-center text-3xl font-bold">{projectTitle}</h1>
+        <p className="mb-2">{projectObjective}</p>
+        <ul className="mb-8 list-inside list-disc">
+          {queryOptions.map((option: string, index: number) => (
+            <li key={index}>{option}</li>
+          ))}
+        </ul>
+        <h2 className="mb-2 text-2xl font-bold">{queryDetailsTitle}</h2>
+        <ul className="mb-8 list-inside list-disc">
+          {queryDetails.map((detail: string, index: number) => (
+            <li key={index}>{detail}</li>
+          ))}
+        </ul>
+        <h2 className="mb-4 text-2xl font-bold">
+          {nonFunctionalRequirementsTitle}
+        </h2>
+        <ul className="mb-8 list-inside list-disc">
+          {nonFunctionalRequirements.map((req: string, index: number) => (
+            <li key={index}>{req}</li>
+          ))}
+        </ul>
+        <h2 className="mb-4 text-2xl font-bold">Critérios de Avaliação</h2>
+        <ul className="mb-8 list-inside list-disc">
+          {evaluationCriteria.map((criteria: string, index: number) => (
+            <li key={index}>{criteria}</li>
+          ))}
+        </ul>
+      </main>
+      <FooterSection />
+    </>
   )
 }
+
+export default IndexPage
