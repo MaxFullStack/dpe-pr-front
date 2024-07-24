@@ -2,21 +2,15 @@ import * as React from "react"
 import Link from "next/link"
 
 import { NavItem } from "@/types/nav"
-import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Icons } from "@/components/icons"
 
 interface MainNavProps {
   items?: NavItem[]
 }
 
-export function MainNav({ items }: MainNavProps) {
+const MainNav = ({ items }: MainNavProps) => {
   return (
     <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
-        <span className="inline-block font-bold">{siteConfig.name}</span>
-      </Link>
       {items?.length ? (
         <nav className="flex gap-6">
           {items?.map(
@@ -26,7 +20,8 @@ export function MainNav({ items }: MainNavProps) {
                   key={index}
                   href={item.href}
                   className={cn(
-                    "flex items-center text-sm font-medium text-muted-foreground",
+                    "relative flex items-center text-base font-medium text-muted-foreground hover:text-foreground",
+                    "before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 before:bg-primary before:transition-all before:duration-300 hover:before:w-full",
                     item.disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
@@ -39,3 +34,5 @@ export function MainNav({ items }: MainNavProps) {
     </div>
   )
 }
+
+export default MainNav
