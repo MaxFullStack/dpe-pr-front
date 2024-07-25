@@ -9,9 +9,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-import { Menu } from "./menu"
+import Menu from "./menu"
 
-export function SheetMenu() {
+const SheetMenu = () => {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden" asChild>
@@ -37,3 +37,5 @@ export function SheetMenu() {
     </Sheet>
   )
 }
+
+export default SheetMenu
