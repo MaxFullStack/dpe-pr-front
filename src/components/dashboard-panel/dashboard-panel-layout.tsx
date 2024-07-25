@@ -4,16 +4,15 @@ import React from "react"
 
 import { cn } from "@/lib/utils"
 import { useSidebarToggle } from "@/hooks/use-sidebar-toogle"
-import { useStore } from "@/hooks/use-store"
 
 import FooterSection from "../layout/footer-section"
-import { Navbar } from "./navbar"
+import Navbar from "./navbar"
 import Sidebar from "./sidebar"
 
-const DashboarPanelLayout = ({ children }: { children: React.ReactNode }) => {
-  const sidebar = useStore(useSidebarToggle, (state) => state)
+const DashboardPanelLayout = ({ children }: { children: React.ReactNode }) => {
+  const { isOpen } = useSidebarToggle()
 
-  if (!sidebar) return null
+  if (isOpen === undefined) return null
 
   return (
     <>
@@ -22,7 +21,7 @@ const DashboarPanelLayout = ({ children }: { children: React.ReactNode }) => {
         <main
           className={cn(
             "flex-1 bg-zinc-50 transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900",
-            sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+            isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
           )}
         >
           <Navbar title="Dashboard" />
@@ -31,7 +30,7 @@ const DashboarPanelLayout = ({ children }: { children: React.ReactNode }) => {
         <footer
           className={cn(
             "transition-[margin-left] duration-300 ease-in-out",
-            sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+            isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
           )}
         >
           <FooterSection />
@@ -41,4 +40,4 @@ const DashboarPanelLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default DashboarPanelLayout
+export default DashboardPanelLayout
