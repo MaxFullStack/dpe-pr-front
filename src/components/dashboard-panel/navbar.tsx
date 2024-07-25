@@ -9,14 +9,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb"
-import { SheetMenu } from "./sheet-menu"
+import SheetMenu from "./sheet-menu"
 import { UserNav } from "./user-nav"
 
 interface NavbarProps {
   title: string
 }
 
-export function Navbar({ title }: NavbarProps) {
+const Navbar = ({ title }: NavbarProps) => {
   return (
     <header className="sticky top-0 z-10 w-full border-b shadow-sm supports-[backdrop-filter]:bg-background">
       <div className="mx-4 flex h-16 items-center sm:mx-8">
@@ -44,3 +44,5 @@ export function Navbar({ title }: NavbarProps) {
     </header>
   )
 }
+
+export default Navbar
