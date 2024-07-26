@@ -24,7 +24,7 @@ const DashboardPanelLayout = ({ children }: { children: React.ReactNode }) => {
             isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
           )}
         >
-          <Navbar title="Dashboard" />
+          <Navbar />
           {children}
         </main>
         <footer
