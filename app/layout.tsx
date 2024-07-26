@@ -1,6 +1,8 @@
 import "@/styles/globals.css"
 
+import React from "react"
 import { Metadata } from "next"
+import ClientProviders from "@/context/client-providers"
 import { ThemeProvider } from "next-themes"
 
 import { siteConfig } from "@/config/site"
@@ -26,22 +28,22 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ClientProviders>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <div className="flex-1">{children}</div>
             </div>
           </ThemeProvider>
-        </body>
-      </html>
-    </>
+        </ClientProviders>
+      </body>
+    </html>
   )
 }
