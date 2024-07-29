@@ -1,5 +1,6 @@
 import {
   Blend,
+  Calendar,
   Check,
   ChevronDown,
   ChevronLeft,
@@ -20,6 +21,7 @@ import {
 export type Icon = typeof LucideIcon
 
 export const Icons = {
+  calendar: Calendar,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   chevronsLeft: ChevronsLeft,

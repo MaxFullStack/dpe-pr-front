@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,6 +11,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table"
+import { DateRange } from "react-day-picker"
 
 import {
   Table,
@@ -51,9 +52,24 @@ export function DataTable<TData>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
+  const [dateRange, setDateRange] = useState<DateRange | undefined>()
+
+  const filteredData = useMemo(() => {
+    if (!dateRange?.from || !dateRange?.to) return data
+
+    return data.filter((row: any) => {
+      const rowDate = new Date(row.creationDate)
+      return (
+        dateRange.from &&
+        dateRange.to &&
+        rowDate >= dateRange.from &&
+        rowDate <= dateRange.to
+      )
+    })
+  }, [data, dateRange])
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     state: {
       sorting,
@@ -79,6 +95,8 @@ export function DataTable<TData>({
         searchColumnKey={searchColumnKey}
         filterOptions={filterOptions}
         columnTranslations={columnTranslations}
+        dateRange={dateRange}
+        setDateRange={setDateRange}
       />
       <div className="rounded-md border">
         <Table>

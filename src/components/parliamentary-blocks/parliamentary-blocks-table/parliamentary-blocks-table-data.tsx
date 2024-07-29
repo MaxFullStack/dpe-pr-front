@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { ParliamentaryBlock } from "@/types/parliamentary-block"
+import { formatDate } from "@/lib/utils"
 
 export const columnTranslations: { [key: string]: string } = {
   blockCode: "Código do Bloco",
@@ -25,10 +26,11 @@ export const blockColumns: ColumnDef<ParliamentaryBlock>[] = [
   {
     accessorKey: "creationDate",
     header: columnTranslations.creationDate,
-    cell: ({ row }) => {
+    /*  cell: ({ row }) => {
       const date = new Date(row.getValue<string>("creationDate"))
       return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()}`
-    },
+    }, */
+    cell: ({ cell }) => formatDate(cell.getValue() as Date),
   },
 ]
 
