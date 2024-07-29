@@ -2,6 +2,10 @@ import {
   Blend,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   ChevronsUpDown,
   Loader,
   LucideProps,
@@ -16,6 +20,10 @@ import {
 export type Icon = typeof LucideIcon
 
 export const Icons = {
+  chevronLeft: ChevronLeft,
+  chevronRight: ChevronRight,
+  chevronsLeft: ChevronsLeft,
+  chevronsRight: ChevronsRight,
   mixer: Blend,
   plusCircle: PlusCircle,
   check: Check,
