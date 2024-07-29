@@ -12,7 +12,6 @@ import {
   VisibilityState,
 } from "@tanstack/react-table"
 
-import { Button } from "@/components/ui/button"
 import {
   Table,
   TableBody,
@@ -22,6 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { DataTablePagination } from "./data-table-pagination"
 import { DataTableToolbar } from "./data-table-toolbar"
 
 interface DataTableProps<TData> {
@@ -35,6 +35,7 @@ interface DataTableProps<TData> {
     options: { label: string; value: string }[]
   }[]
   columnTranslations: { [key: string]: string }
+  floatingBar?: React.ReactNode | null
 }
 
 export function DataTable<TData>({
@@ -44,6 +45,7 @@ export function DataTable<TData>({
   searchColumnKey,
   filterOptions,
   columnTranslations,
+  floatingBar = null,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -126,29 +128,9 @@ export function DataTable<TData>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} de{" "}
-          {table.getFilteredRowModel().rows.length} linha(s) selecionadas.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Anterior
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Próximo
-          </Button>
-        </div>
+      <div className="flex flex-col gap-2.5">
+        <DataTablePagination table={table} />
+        {table.getFilteredSelectedRowModel().rows.length > 0 && floatingBar}
       </div>
     </div>
   )
