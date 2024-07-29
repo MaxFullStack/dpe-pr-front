@@ -1,8 +1,13 @@
 import {
+  Blend,
+  Check,
+  ChevronDown,
+  ChevronsUpDown,
   Loader,
   LucideProps,
   Menu,
   Moon,
+  PlusCircle,
   SunMedium,
   X,
   type Icon as LucideIcon,
@@ -11,6 +16,11 @@ import {
 export type Icon = typeof LucideIcon
 
 export const Icons = {
+  mixer: Blend,
+  plusCircle: PlusCircle,
+  check: Check,
+  chevronDown: ChevronDown,
+  chevronsUpDown: ChevronsUpDown,
   sun: SunMedium,
   moon: Moon,
   x: X,
