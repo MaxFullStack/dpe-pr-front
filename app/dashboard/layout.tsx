@@ -1,3 +1,5 @@
+import { DataProvider } from "@/context/data-provider"
+
 import DashboardPanelLayout from "@/components/dashboard-panel/dashboard-panel-layout"
 
 interface RootLayoutProps {
@@ -9,11 +11,11 @@ interface RootLayoutProps {
 export default function DashboardLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <DashboardPanelLayout>
-        <div className="fixed top-16 z-10 flex h-16 w-full items-center bg-inherit">
-          {children}
-        </div>
-      </DashboardPanelLayout>
+      <DataProvider>
+        <DashboardPanelLayout>
+          <div className="mt-6 flex w-full flex-col bg-inherit">{children}</div>
+        </DashboardPanelLayout>
+      </DataProvider>
     </>
   )
 }
