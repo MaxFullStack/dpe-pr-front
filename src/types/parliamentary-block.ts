@@ -15,5 +15,6 @@ export interface ParliamentaryBlock {
   blockName: string
   blockNickname: string
   creationDate: string
+  partyAcronym: string
   members: Member[]
 }
