@@ -37,16 +37,16 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "Pesquisa",
       menus: [
         {
-          href: "/dashboard/blocks",
+          href: "/dashboard/blocos-parlamentares",
           label: "Blocos Parlamentares",
-          active: pathname.includes("/dashboard/blocks"),
+          active: pathname.includes("/dashboard/blocos-parlamentares"),
           icon: SquarePen,
           submenus: [],
         },
         {
-          href: "/dashboard/senators",
+          href: "/dashboard/senadores",
           label: "Senadores",
-          active: pathname.includes("/dashboard/senators"),
+          active: pathname.includes("/dashboard/senadores"),
           icon: Bookmark,
           submenus: [],
         },
