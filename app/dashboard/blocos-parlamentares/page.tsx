@@ -9,7 +9,9 @@ const BlocosParlamentaresPage = () => {
     <div className="container sm:px-8">
       <div className="mb-8">
         <h1 className="mb-2 text-2xl font-bold">Blocos Parlamentares</h1>
-        <h2 className="">Lista de blocos parlamentares</h2>
+        <h2 className="">
+          Lista de Blocos Parlamentares e Seus Partidos Associados
+        </h2>
       </div>
       <div>
         <ParliamentaryBlocksTable />
