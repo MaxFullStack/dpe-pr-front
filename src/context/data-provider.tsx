@@ -4,75 +4,45 @@ import React, { createContext, ReactNode, useContext, useMemo } from "react"
 
 import { ParliamentaryBlock } from "@/types/parliamentary-block"
 import { Senator } from "@/types/senator"
-import { useFetchParliamentaryBlockDetails } from "@/hooks/use-fetch-parliamentary-block-details"
-import { useFetchParliamentaryBlocks } from "@/hooks/use-fetch-parliamentary-blocks"
-import { useFetchSenatorDetails } from "@/hooks/use-fetch-senator-details"
-import { useFetchSenators } from "@/hooks/use-fetch-senators"
+import { useParliamentaryBlockDetails } from "@/hooks/use-parliamentary-block-details"
+import { useParliamentaryBlocks } from "@/hooks/use-parliamentary-blocks"
+import { useSenatorDetails } from "@/hooks/use-senator-details"
+import { useSenators } from "@/hooks/use-senators"
 
 interface DataContextProps {
-  senators: Senator[]
-  parliamentaryBlocks: ParliamentaryBlock[]
-  fetchParliamentaryBlockDetails: (id: string) => Promise<ParliamentaryBlock>
-  fetchSenatorDetails: (id: string) => Promise<Senator>
+  senatorsList: Senator[]
+  parliamentaryBlocksList: ParliamentaryBlock[]
+  getParliamentaryBlockDetails: (id: string) => Promise<ParliamentaryBlock>
+  getSenatorDetails: (id: string) => Promise<Senator>
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined)
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
-  const { data: senatorsData } = useFetchSenators()
-  const { data: blocksData } = useFetchParliamentaryBlocks()
+  const { data: senatorsData } = useSenators()
+  const { data: blocksData } = useParliamentaryBlocks()
 
-  const fetchParliamentaryBlockDetails = async (
+  const getParliamentaryBlockDetails = async (
     id: string
   ): Promise<ParliamentaryBlock> => {
-    const { data } = useFetchParliamentaryBlockDetails(id)
+    const { data } = await useParliamentaryBlockDetails(id)
     if (!data) {
       throw new Error("Block data not found")
     }
     return data
   }
 
-  const fetchSenatorDetails = async (id: string): Promise<Senator> => {
-    const { data } = useFetchSenatorDetails(id)
+  const getSenatorDetails = async (id: string): Promise<Senator> => {
+    const { data } = await useSenatorDetails(id)
     if (!data) {
       throw new Error("Senator data not found")
     }
     return data
   }
 
-  /* const transformBlocksDetailsData = (blocksData: any): ParliamentaryBlock[] => {
-    if (!blocksData) return []
-    return (
-      blocksData.ListaBlocoParlamentar?.Blocos?.Bloco?.reduce(
-        (acc: ParliamentaryBlock[], block: any) => {
-          block.Membros?.Membro.forEach((member: any) => {
-            acc.push({
-              blockCode: block.CodigoBloco,
-              blockName: block.NomeBloco,
-              blockNickname: block.NomeApelido,
-              creationDate: block.DataCriacao,
-              members: [
-                {
-                  party: {
-                    partyCode: member.Partido.CodigoPartido,
-                    partyAcronym: member.Partido.SiglaPartido,
-                    partyName: member.Partido.NomePartido,
-                  },
-                  joinDate: member.DataAdesao,
-                  leaveDate: member.DataDesligamento || null,
-                },
-              ],
-            })
-          })
-          return acc
-        },
-        []
-      ) || []
-    )
-  } */
-
   const transformBlocksData = (blocksData: any): ParliamentaryBlock[] => {
     if (!blocksData) return []
+  
     return (
       blocksData.ListaBlocoParlamentar?.Blocos?.Bloco?.reduce(
         (acc: ParliamentaryBlock[], block: any) => {
@@ -80,19 +50,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
             acc.push({
               blockCode: block.CodigoBloco,
               blockName: block.NomeBloco,
-              blockNickname: block.NomeApelido,
               creationDate: block.DataCriacao,
               partyAcronym: member.Partido.SiglaPartido,
-              members:
-                block.Membros?.Membro.map((m: any) => ({
-                  party: {
-                    partyCode: m.Partido.CodigoPartido,
-                    partyAcronym: m.Partido.SiglaPartido,
-                    partyName: m.Partido.NomePartido,
-                  },
-                  joinDate: m.DataAdesao,
-                  leaveDate: m.DataDesligamento || null,
-                })) || [],
+              members: [],
             })
           })
           return acc
@@ -101,6 +61,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       ) || []
     )
   }
+  
 
   const transformSenatorsData = (senatorsData: any): Senator[] => {
     if (!senatorsData) return []
@@ -117,23 +78,23 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     )
   }
 
-  const transformedBlocks = useMemo(
+  const transformedBlocksList = useMemo(
     () => transformBlocksData(blocksData),
     [blocksData]
   )
-  const transformedSenators = useMemo(
+  const transformedSenatorsList = useMemo(
     () => transformSenatorsData(senatorsData),
     [senatorsData]
   )
 
   const value = useMemo(
     () => ({
-      senators: transformedSenators,
-      parliamentaryBlocks: transformedBlocks,
-      fetchParliamentaryBlockDetails,
-      fetchSenatorDetails,
+      senatorsList: transformedSenatorsList,
+      parliamentaryBlocksList: transformedBlocksList,
+      getParliamentaryBlockDetails,
+      getSenatorDetails,
     }),
-    [transformedSenators, transformedBlocks]
+    [transformedSenatorsList, transformedBlocksList]
   )
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>
