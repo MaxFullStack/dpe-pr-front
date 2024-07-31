@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { ParliamentaryBlock } from "@/types/parliamentary-block"
@@ -6,23 +7,38 @@ import { formatDate } from "@/lib/utils"
 export const columnTranslations: { [key: string]: string } = {
   blockCode: "Código do Bloco",
   blockName: "Nome do Bloco",
-  blockNickname: "Apelido do Bloco",
   creationDate: "Data de Criação",
   partyAcronym: "Sigla do Partido",
 }
 
 export const blockColumns: ColumnDef<ParliamentaryBlock>[] = [
   {
+    accessorKey: "blockCode",
+    header: columnTranslations.blockCode,
+  },
+
+  {
     accessorKey: "partyAcronym",
     header: columnTranslations.partyAcronym,
   },
+
   {
     accessorKey: "blockName",
     header: columnTranslations.blockName,
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+    cell: ({ row }) => {
+      const blockCode = row.getValue<string>("blockCode")
+      const blockName = row.getValue<string>("blockName")
+      return (
+        <Link href={`/dashboard/blocos-parlamentares/${blockCode}`}>
+          <div className="text-blue-500 underline">{blockName}</div>
+        </Link>
+      )
+    },
   },
+
   {
     accessorKey: "creationDate",
     header: columnTranslations.creationDate,
