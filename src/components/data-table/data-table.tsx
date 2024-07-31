@@ -37,6 +37,7 @@ interface DataTableProps<TData> {
   }[]
   columnTranslations: { [key: string]: string }
   floatingBar?: React.ReactNode | null
+  initialVisibility?: VisibilityState
 }
 
 export function DataTable<TData>({
@@ -47,12 +48,16 @@ export function DataTable<TData>({
   filterOptions,
   columnTranslations,
   floatingBar = null,
+  initialVisibility = {},
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    initialVisibility
+  )
   const [rowSelection, setRowSelection] = useState({})
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
+  
 
   const filteredData = useMemo(() => {
     if (!dateRange?.from || !dateRange?.to) return data
