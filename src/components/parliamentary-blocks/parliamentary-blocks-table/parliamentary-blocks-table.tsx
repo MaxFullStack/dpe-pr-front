@@ -10,16 +10,17 @@ import {
 } from "./parliamentary-blocks-table-data"
 
 const ParliamentaryBlocksTable = () => {
-  const { parliamentaryBlocks } = useDataContext()
+  const { parliamentaryBlocksList } = useDataContext()
 
   return (
     <DataTable
-      data={parliamentaryBlocks}
+      data={parliamentaryBlocksList}
       columns={blockColumns}
       columnTranslations={columnTranslations}
       searchPlaceholder="Filtrar por sigla do partido..."
       searchColumnKey="partyAcronym"
-      filterOptions={filterOptions(parliamentaryBlocks)}
+      filterOptions={filterOptions(parliamentaryBlocksList)}
+      initialVisibility={{ blockCode: false }}
     />
   )
 }
