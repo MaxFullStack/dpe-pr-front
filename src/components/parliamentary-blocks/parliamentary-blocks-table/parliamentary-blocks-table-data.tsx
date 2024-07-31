@@ -15,6 +15,7 @@ export const blockColumns: ColumnDef<ParliamentaryBlock>[] = [
   {
     accessorKey: "blockCode",
     header: columnTranslations.blockCode,
+    enableHiding: false
   },
 
   {
