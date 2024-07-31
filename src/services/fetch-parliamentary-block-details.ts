@@ -2,7 +2,7 @@ import axios from "axios"
 
 import { ParliamentaryBlock } from "@/types/parliamentary-block"
 
-export const getParliamentaryBlockDetailsService = async (
+export const fetchParliamentaryBlockDetails = async (
   id: string
 ): Promise<ParliamentaryBlock> => {
   const { data } = await axios.get(`/api/blocos-parlamentares/${id}`)

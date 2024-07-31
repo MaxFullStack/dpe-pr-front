@@ -1,11 +1,12 @@
-import { getSenators } from "@/services/get-senators-service"
+
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 
 import { Senator } from "@/types/senator"
+import { fetchSenators } from "@/services/fetch-senators"
 
-export const useFetchSenators = (): UseQueryResult<Senator[], Error> => {
+export const useSenators = (): UseQueryResult<Senator[], Error> => {
   return useQuery<Senator[], Error>({
     queryKey: ["senators"],
-    queryFn: getSenators,
+    queryFn: fetchSenators,
   })
 }
