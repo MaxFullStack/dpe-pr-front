@@ -1,6 +1,7 @@
 "use client"
 
-import React, { createContext, ReactNode, useContext, useMemo } from "react"
+import React, { createContext, ReactNode, useContext } from "react"
+import { UseQueryResult } from "@tanstack/react-query"
 
 import { ParliamentaryBlock } from "@/types/parliamentary-block"
 import { Senator } from "@/types/senator"
@@ -8,48 +9,42 @@ import { useParliamentaryBlockDetails } from "@/hooks/use-parliamentary-block-de
 import { useParliamentaryBlocks } from "@/hooks/use-parliamentary-blocks"
 import { useSenatorDetails } from "@/hooks/use-senator-details"
 import { useSenators } from "@/hooks/use-senators"
-import { UseQueryResult } from "@tanstack/react-query"
 
 interface DataContextProps {
-  senatorsList: UseQueryResult<Senator[], Error>;
-  parliamentaryBlocksList: UseQueryResult<ParliamentaryBlock[], Error>;
-  getParliamentaryBlockDetails: (id: string) => UseQueryResult<ParliamentaryBlock, Error>;
-  getSenatorDetails: (id: string) => UseQueryResult<Senator, Error>;
+  senatorsList: UseQueryResult<Senator[], Error>
+  parliamentaryBlocksList: UseQueryResult<ParliamentaryBlock[], Error>
+  getParliamentaryBlockDetails: (
+    id: string
+  ) => UseQueryResult<ParliamentaryBlock, Error>
+  getSenatorDetails: (id: string) => UseQueryResult<Senator, Error>
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined)
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
-  const parliamentaryBlocksQuery = useParliamentaryBlocks();
-  const senatorsQuery = useSenators();
-  const getParliamentaryBlockDetails = (id: string) => useParliamentaryBlockDetails(id);
-  const getSenatorDetails = (id: string) => useSenatorDetails(id);
+  const senatorsList = useSenators()
+  const parliamentaryBlocksList = useParliamentaryBlocks()
 
-  const transformSenatorsData = (senatorsData: any): Senator[] => {
-    if (!senatorsData) return []
-    return (
-      senatorsData.ListaParlamentar?.Parlamentar?.map((senator: any) => ({
-        name: senator.NomeParlamentar,
-        state: senator.UfParlamentar,
-        parliamentaryBlock: senator.BlocoParlamentar?.NomeBloco || "",
-        photo: senator.UrlFotoParlamentar,
-        email: senator.EmailParlamentar,
-        phone: senator.TelefoneParlamentar,
-        parliamentaryPageUrl: senator.UrlPaginaParlamentar,
-      })) || []
-    )
+  const getParliamentaryBlockDetails = (id: string) => {
+    return useParliamentaryBlockDetails(id)
   }
 
-  const value = useMemo(() => {
-    return {
-      senatorsList: senatorsQuery,
-      parliamentaryBlocksList: parliamentaryBlocksQuery,
-      getParliamentaryBlockDetails,
-      getSenatorDetails,
-    };
-  }, [parliamentaryBlocksQuery, senatorsQuery, getParliamentaryBlockDetails, getSenatorDetails]);
+  const getSenatorDetails = (id: string) => {
+    return useSenatorDetails(id)
+  }
 
-  return <DataContext.Provider value={value}>{children}</DataContext.Provider>
+  return (
+    <DataContext.Provider
+      value={{
+        senatorsList,
+        parliamentaryBlocksList,
+        getParliamentaryBlockDetails,
+        getSenatorDetails,
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  )
 }
 
 export const useDataContext = () => {
