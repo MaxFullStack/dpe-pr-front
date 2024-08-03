@@ -1,4 +1,4 @@
-import { Bookmark, LayoutGrid, LucideIcon, SquarePen } from "lucide-react"
+import { Building, LayoutGrid, LucideIcon, Users } from "lucide-react"
 
 type Submenu = {
   href: string
@@ -40,14 +40,14 @@ export function getMenuList(pathname: string): Group[] {
           href: "/dashboard/blocos-parlamentares",
           label: "Blocos Parlamentares",
           active: pathname.includes("/dashboard/blocos-parlamentares"),
-          icon: SquarePen,
+          icon: Building,
           submenus: [],
         },
         {
           href: "/dashboard/senadores",
           label: "Senadores",
           active: pathname.includes("/dashboard/senadores"),
-          icon: Bookmark,
+          icon: Users,
           submenus: [],
         },
       ],
