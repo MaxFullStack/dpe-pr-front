@@ -5,6 +5,6 @@ import { ParliamentaryBlock } from "@/types/parliamentary-block"
 export const fetchParliamentaryBlocks = async (): Promise<
   ParliamentaryBlock[]
 > => {
-  const { data } = await axios.get("/api/blocos-parlamentares")
-  return data
+  const response = await axios.get("/api/blocos-parlamentares")
+  return response.data
 }
