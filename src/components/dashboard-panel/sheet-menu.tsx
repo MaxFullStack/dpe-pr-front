@@ -28,7 +28,7 @@ const SheetMenu = () => {
           >
             <Link href="/dashboard" className="flex items-center gap-2">
               <PanelsTopLeft className="mr-1 size-6" />
-              <h1 className="text-lg font-bold">Brain Ag</h1>
+              <h1 className="text-lg font-bold">DPE-PR</h1>
             </Link>
           </Button>
         </SheetHeader>
