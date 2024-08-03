@@ -1,4 +1,3 @@
-
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 
 import { Senator } from "@/types/senator"
