@@ -25,21 +25,13 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const senatorsList = useSenators()
   const parliamentaryBlocksList = useParliamentaryBlocks()
 
-  const getParliamentaryBlockDetails = (id: string) => {
-    return useParliamentaryBlockDetails(id)
-  }
-
-  const getSenatorDetails = (id: string) => {
-    return useSenatorDetails(id)
-  }
-
   return (
     <DataContext.Provider
       value={{
         senatorsList,
         parliamentaryBlocksList,
-        getParliamentaryBlockDetails,
-        getSenatorDetails,
+        getParliamentaryBlockDetails: useParliamentaryBlockDetails,
+        getSenatorDetails: useSenatorDetails,
       }}
     >
       {children}
