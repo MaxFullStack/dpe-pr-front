@@ -40,7 +40,7 @@ const Sidebar = () => {
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brain Ag
+              DPE-PR
             </h1>
           </Link>
         </Button>
