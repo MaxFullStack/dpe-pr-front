@@ -11,15 +11,24 @@ import {
 
 const ParliamentaryBlocksTable = () => {
   const { parliamentaryBlocksList } = useDataContext()
+  const { data, isLoading, error } = parliamentaryBlocksList
+
+  if (isLoading) {
+    return <div>Carregando...</div>
+  }
+
+  if (error) {
+    return <div>Erro: {error.message}</div>
+  }
 
   return (
     <DataTable
-      data={parliamentaryBlocksList}
+      data={data || []}
       columns={blockColumns}
       columnTranslations={columnTranslations}
       searchPlaceholder="Filtrar por sigla do partido..."
       searchColumnKey="partyAcronym"
-      filterOptions={filterOptions(parliamentaryBlocksList)}
+      filterOptions={filterOptions(data || [])}
       initialVisibility={{ blockCode: false }}
     />
   )
