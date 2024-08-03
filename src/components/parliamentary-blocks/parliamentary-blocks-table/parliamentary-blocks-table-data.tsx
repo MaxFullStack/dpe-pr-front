@@ -15,7 +15,7 @@ export const blockColumns: ColumnDef<ParliamentaryBlock>[] = [
   {
     accessorKey: "blockCode",
     header: columnTranslations.blockCode,
-    enableHiding: false
+    enableHiding: false,
   },
 
   {
@@ -43,11 +43,11 @@ export const blockColumns: ColumnDef<ParliamentaryBlock>[] = [
   {
     accessorKey: "creationDate",
     header: columnTranslations.creationDate,
-    /*  cell: ({ row }) => {
+    cell: ({ row }) => {
       const date = new Date(row.getValue<string>("creationDate"))
       return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()}`
-    }, */
-    cell: ({ cell }) => formatDate(cell.getValue() as Date),
+    },
+    /* cell: ({ cell }) => formatDate(cell.getValue() as Date), */
   },
 ]
 
