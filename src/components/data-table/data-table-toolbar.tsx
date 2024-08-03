@@ -77,7 +77,7 @@ export function DataTableToolbar<TData>({
               className="h-8 px-2 lg:px-3"
             >
               Limpar
-              <Icons.x className="ml-2 h-4 w-4" />
+              <Icons.x className="ml-2 size-4" />
             </Button>
           )}
         </div>

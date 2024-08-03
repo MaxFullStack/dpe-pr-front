@@ -17,7 +17,7 @@ const IndexPage = () => {
   return (
     <>
       <SiteHeader />
-      <main id="solutions" className="px-8 py-8 md:px-12 md:py-10">
+      <main id="solutions" className="p-8 md:px-12 md:py-10">
         <h1 className="mb-8 text-center text-3xl font-bold">{projectTitle}</h1>
         <p className="mb-2">{projectObjective}</p>
         <ul className="mb-8 list-inside list-disc">
