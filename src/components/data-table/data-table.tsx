@@ -52,12 +52,10 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-    initialVisibility
-  )
+  const [columnVisibility, setColumnVisibility] =
+    useState<VisibilityState>(initialVisibility)
   const [rowSelection, setRowSelection] = useState({})
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
-  
 
   const filteredData = useMemo(() => {
     if (!dateRange?.from || !dateRange?.to) return data
