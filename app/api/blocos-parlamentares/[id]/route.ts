@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import axios from "axios"
 
 const PARLIAMENTARY_BLOCK_DETAILS_API_URL = process.env
-  .NEXT_PUBLIC_PARLIAMENTARY_BLOCK_DETAILS_API_URL as string
+  .PARLIAMENTARY_BLOCK_DETAILS_API_URL as string
 
 export async function GET(
   req: NextRequest,

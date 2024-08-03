@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import axios from "axios"
 
-const SENATOR_DETAILS_API_URL = process.env
-  .NEXT_PUBLIC_SENATOR_DETAILS_API_URL as string
+const SENATOR_DETAILS_API_URL = process.env.SENATOR_DETAILS_API_URL as string
 
 export async function GET(
   req: NextRequest,
